@@ -1,16 +1,17 @@
 #!groovy
 
-@Library('jenkinst') _  
+@Library('jenkinst') _
 
-def tools = new devops.tools()  
-
-
+def tools = new org.devops.tools()
 
 
+
+String workspace = "/opt/jenkins/workspace"
 
 //Pipeline
 pipeline {
-    agent any
+    agent  any
+    
 
     options {
         timestamps()  //日志会有时间
@@ -29,7 +30,7 @@ pipeline {
                         println('获取代码')
                         println("${test}")
                         
-                        input id: 'Test', message: '我们是否要继续？', ok: '是，继续吧！', parameters: [choice(choices: ['a', 'b'], description: '', name: 'test1')], submitter: 'lizeyang,admin'
+                        
                     }
                 }
             }
@@ -46,10 +47,7 @@ pipeline {
                             script{
                                 println('应用打包')
                                 
-                                mvnHome = tool "m2"
-                                println(mvnHome)
-                                
-                                sh "${mvnHome}/bin/mvn --version"
+
                             }
                         }
                     }
@@ -62,7 +60,8 @@ pipeline {
                             script{
                                 print("代码扫描")
 
-                                tools.PrintMes("This is my lib from Github!")
+                                tools.PrintMsg("this is my lib!")
+                                      
                             }
                         }
                     }
